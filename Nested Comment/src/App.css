@@ -1,0 +1,39 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html , body{
+  height: 100%;
+  width: 100%;
+}
+#root{
+  min-height:100vh;
+  width:100%;
+  background-color: pink;
+}
+
+.upper_hero_section{
+  padding-top: 2rem;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom:3rem;
+}
+.input-area{
+  display:flex;
+  gap:.5rem;
+}
+form>input{
+  padding-left: .5rem;
+}
+.input-area button{
+  cursor: pointer;
+  padding: .2rem 1rem;
+}
+.messages{
+  padding-top:2rem;
+  width:100%;
+}
