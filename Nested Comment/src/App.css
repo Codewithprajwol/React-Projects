@@ -11,12 +11,15 @@ html , body{
 #root{
   min-height:100vh;
   width:100%;
-  background-color: pink;
+  background-image: linear-gradient(to bottom, #ff7e5f, #feb47b); /* Customize colors */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .upper_hero_section{
   padding-top: 2rem;
-  display:flex;
+display:flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -35,5 +38,6 @@ form>input{
 }
 .messages{
   padding-top:2rem;
+  padding-inline:3rem;
   width:100%;
 }
