@@ -1,6 +1,8 @@
+import { RouterProvider } from "react-router-dom"
 // import Login from "./components/auth/Login"
+import { router } from "./main"
 
-import AdminDashboard from "./components/dashboard/AdminDashboard"
+
 
 // import EmployeeDashboard from "./components/dashboard/EmployeeDashboard"
 
@@ -9,7 +11,7 @@ function App():JSX.Element {
     <>
     {/* <Login /> */}
      {/* <EmployeeDashboard /> */}
-     <AdminDashboard />
+    <RouterProvider router={router}></RouterProvider>
 
     </>
   )

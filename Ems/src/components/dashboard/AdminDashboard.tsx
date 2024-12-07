@@ -1,3 +1,4 @@
+import { Link,  Outlet } from "react-router-dom";
 import Header from "../../others/Header";
 
 function AdminDashboard(): JSX.Element {
@@ -8,7 +9,7 @@ function AdminDashboard(): JSX.Element {
         <div className="max-w-20 w-20 min-h-52 bg-white pt-5">
           <ul className="admin-icon flex items-center justify-center flex-col gap-7 ">
             <li className="relative group">
-              <a href="#">
+              <Link to='/admin'>
                 <svg 
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -24,7 +25,7 @@ function AdminDashboard(): JSX.Element {
                   <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
-              </a><span className="hidden  absolute -top-3 left-11 w-32 h-10 bg-white group-hover:flex items-start justify-center flex-col gap-3">Dashboard</span>
+              </Link><span className="hidden  absolute -top-3 left-11 w-32 h-10 bg-white group-hover:flex items-start justify-center flex-col gap-3">Dashboard</span>
             </li>
             <li className="group relative">
               <a href="#">
@@ -51,9 +52,9 @@ function AdminDashboard(): JSX.Element {
               <span className="hidden  absolute -top-3 left-11 w-32 h-10 bg-white group-hover:flex items-start justify-center flex-col gap-3">Contact</span>
             </li>
             <li className="relative group">
-              <a href="#">
+              <Link to="/admin/createTask">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-trello"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="9"></rect><rect x="14" y="7" width="3" height="5"></rect></svg>
-              </a>
+              </Link>
               <span className="hidden  absolute -top-3 left-11 w-32 h-10 bg-white group-hover:flex items-start justify-center flex-col gap-3 ">Tasks</span>
             </li>
 
@@ -65,6 +66,9 @@ function AdminDashboard(): JSX.Element {
             <h3 className="text-[1rem] text-[#dadada] ">
               Tasks - <span className="text-xs text-[#000]">Create Tasks</span>
             </h3>
+          </div>
+          <div className="w-full p-5 h-53 bg-red-300">
+            <Outlet />
           </div>
         </div>
       </div>
