@@ -6,28 +6,30 @@ import { createBrowserRouter} from "react-router-dom"
 import AdminDashboard from "./components/dashboard/AdminDashboard"
 import CreateTask from "./components/dashboard/adminOutlets/CreateTask"
 import Dashboard from './components/dashboard/adminOutlets/Dashboard.tsx'
-import Login from './components/auth/Login.tsx'
+import AuthContext from './context/AuthContext.tsx'
+import TaskContext from './context/TaskContext.tsx'
 export const router=createBrowserRouter([{
   element:<AdminDashboard />,
-  path:'/admin',
+  path:'/',
   children:[
     {
       element:<Dashboard/>,
-      path:"/admin"
+      path:"/"
     },
     {
     element:<CreateTask />,
     path:"/admin/createTask"
   },
  ]
-},
-{
-  element:<Login/>,
-  path:'/'
 }])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <TaskContext>
+    <AuthContext>
     <App />
+    </AuthContext>
+    </TaskContext>
+    
   </StrictMode>,
 )

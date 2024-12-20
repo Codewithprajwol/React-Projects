@@ -1,11 +1,15 @@
 import { useState } from "react"
 
-function Login():JSX.Element {
+interface handler{
+     handleUser:(email:string,password:number |string)=>void;
+}
+
+function Login({handleUser}:handler):JSX.Element {
   const [user,setUser]=useState<string>('')
   const [password,setPassword]=useState<string | number>('')
   const onSubmitHandler=(e: React.FormEvent<HTMLFormElement>):void=>{
     e.preventDefault();
-    console.log(user,password)
+   handleUser(user,password);
     setUser("")
     setPassword("")
   }
