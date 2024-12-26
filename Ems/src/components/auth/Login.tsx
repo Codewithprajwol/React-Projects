@@ -9,14 +9,14 @@ function Login({handleUser}:handler):JSX.Element {
   const [password,setPassword]=useState<string | number>('')
   const onSubmitHandler=(e: React.FormEvent<HTMLFormElement>):void=>{
     e.preventDefault();
-   handleUser(user,password);
+    handleUser(user,password);
     setUser("")
     setPassword("")
   }
 
   return (
     <>
-      <div className="flex items-center justify-center w-full h-screen bg-[#080710] overflow-hidden">
+      <div className="flex  items-center justify-center w-full h-screen bg-[#080710] overflow-hidden">
         <div className="background">
         <div className="shape1 absolute h-[200px] w-[200px] rounded-full bg-red-500 left-[-20%] top-[-30%]"></div>
         <div className="shape2 absolute h-[200px] w-[200px] rounded-full bg-blue-500 bottom-[-30%] right-[-20%]"></div>
