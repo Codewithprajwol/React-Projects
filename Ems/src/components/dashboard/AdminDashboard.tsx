@@ -1,11 +1,20 @@
 import { Link,  Outlet } from "react-router-dom";
 import Header from "../../others/Header";
 import AllTasks from "../../others/AllTasks";
+import { useContext } from "react";
+import { passingUser, passingUserprop} from "../../App";
+
 
 function AdminDashboard(): JSX.Element {
+  const settingUser:passingUserprop | undefined=useContext(passingUser)
+  if (!settingUser) {
+    throw new Error("passingUser context must be within a provider");
+  }
+  
+  const { setUser } = settingUser;
   return (
     <div>
-      <Header />
+      <Header nameData={null} setUser={setUser} />
       <div className=" flex items-start justify-between  gap-5 w-full min-h-52 bg-[#F4F5F8]">
         <div className="max-w-20 w-20 min-h-screen bg-white pt-5">
           <ul className="admin-icon flex items-center justify-center flex-col gap-7 ">

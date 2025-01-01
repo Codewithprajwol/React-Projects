@@ -1,9 +1,9 @@
 import { RouterProvider } from "react-router-dom"
 import { router } from "./main"
-import { useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import Login from "./components/auth/Login"
 import EmployeeDashboard from "./components/dashboard/EmployeeDashboard";
-import  { AuthContext } from "./context/AuthProvider";
+import  { AuthContext, AuthContextType } from "./context/AuthProvider";
 import { Employee, setLocalStorage } from "./utils/LocalStorage";
 
 interface loggedInUser{
@@ -11,9 +11,24 @@ interface loggedInUser{
   data:Employee;
 }
 
+export interface passingUserprop{
+  setUser:React.Dispatch<React.SetStateAction<string>>;
+  setUserData:React.Dispatch<React.SetStateAction<Employee[] | null>>;
+}
+
+export const passingUser=createContext<passingUserprop | undefined>(undefined)
+
 function App():JSX.Element {
  
-  const authData=useContext(AuthContext)
+  const context:AuthContextType | null =useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("AuthContext must be used within an AuthProvider");
+  }
+
+  const { userData, setUserData } = context;
+
+
   const [user,setUser]=useState<string>('');
   const [loggedInUser,setLoggedInUser]=useState<Employee | null>(null)
   useEffect(()=>{
@@ -29,8 +44,8 @@ function App():JSX.Element {
       setUser('admin');
       localStorage.setItem('LoggedInUser',JSON.stringify({role:'admin'}))
       }
-    else if(authData){
-      const employee=authData.employee.find((e)=>e.email==email && e.password==password);
+    else if(userData){
+      const employee=userData.find((e:Employee)=>e.email==email && e.password==password);
       if(employee){
         setUser('employee')
         localStorage.setItem('LoggedInUser',JSON.stringify({role:'employee',data:employee}))
@@ -45,8 +60,8 @@ function App():JSX.Element {
   return (
     <>
      {!user ?<Login handleUser={handleUser} />:''}
-  { user ==='admin'?<RouterProvider router={router} />:''}
-  { user ==='employee'&& loggedInUser &&<EmployeeDashboard userData={loggedInUser}/>}
+  { user ==='admin'?<passingUser.Provider value={{setUser,setUserData}}><RouterProvider router={router} /></passingUser.Provider>:''}
+  { user ==='employee'&& loggedInUser &&<EmployeeDashboard setUser={setUser} userData={loggedInUser}/>}
     </>
   )
 }

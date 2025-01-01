@@ -3,9 +3,10 @@ import { Employee } from "../utils/LocalStorage"
 
 interface headerProps{
   nameData:Employee |null;
+  setUser:React.Dispatch<React.SetStateAction<string>>  ;
 }
 
-const Header = ({nameData}:headerProps):JSX.Element => {
+const Header = ({nameData,setUser}:headerProps):JSX.Element => {
   const [isUser,setIsUser]=useState<Employee|string >('')
 
   useEffect(()=>{
@@ -18,7 +19,7 @@ const Header = ({nameData}:headerProps):JSX.Element => {
 
    const logOutfunc=():void=>{
      localStorage.setItem('LoggedInUser','');
-     window.location.reload()
+     setUser('')
    }
 
   return (

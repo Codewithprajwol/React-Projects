@@ -5,11 +5,12 @@ import { Employee } from "../../utils/LocalStorage"
 
 interface EmployeeDashboardProps{
    userData:Employee | null;
+   setUser:React.Dispatch<React.SetStateAction<string>> | (()=>void) ;
 }
-function EmployeeDashboard({userData}:EmployeeDashboardProps):JSX.Element {
+function EmployeeDashboard({userData,setUser}:EmployeeDashboardProps):JSX.Element {
   return (
     <div className="bg-[#333333] h-screen w-screen">
-        <Header nameData={userData} />
+        <Header nameData={userData} setUser={setUser} />
         <TasksListNumbers empData={userData} />
         <TaskList taskData={userData}/>
     </div>
