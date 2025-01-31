@@ -6,6 +6,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Todo from './pages/Todo.jsx'
 import About from './pages/About.jsx'
 import Home from './pages/Home.jsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+
+const queryClient=new QueryClient()
+
 const router=createBrowserRouter([{
   path:'/',
   element:<App />,
@@ -24,5 +30,8 @@ const router=createBrowserRouter([{
 }])
 
 createRoot(document.getElementById('root')).render(
+  <QueryClientProvider client={queryClient}>
   <RouterProvider router={router} />
+  <ReactQueryDevtools/>
+  </QueryClientProvider>
 )
