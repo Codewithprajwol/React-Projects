@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useState } from 'react'
 const Axios=axios.create({
@@ -11,7 +11,12 @@ const Todo = () => {
         return response.data
     }
    const {isError,isLoading,data}= useQuery({queryKey:['todos',pageCount],queryFn:FetchTodos,placeholderData:keepPreviousData})
-   console.log(data)
+   
+   const deleteTodo=async(id)=>{
+    await Axios.delete(`/todos/${id}`)
+   }
+   useMutation({mutationFn:(id)=>deleteTodo(id)})
+
      
   return (
     <>
@@ -21,10 +26,11 @@ const Todo = () => {
 
     {/* {data && <div>{JSON.stringify(data,2,null)}</div>} */}
     {data?.todos?.map((todo)=>(
-        <div key={todo.id} className="flex items-center m-auto justify-center gap-2 p-3 flex-col bg-blue-300 text-white shadow-2xl mb-4 max-w-2xl rounded-lg hover:ring-2 hover:ring-amber-200 ">
-            <div className="font-bold">Title:{todo.id}</div>
-            <div className="font-bold text-xl">To Memorize:{todo.todo}</div>
-            <div className="font-bold">completed:{JSON.stringify(todo.completed)}</div>
+        <div key={todo.id} className="flex items-center m-auto justify-center min-h-32 gap-2 p-3 flex-col bg-blue-300 text-white shadow-2xl mb-4 max-w-2xl rounded-lg hover:ring-2 hover:ring-amber-200 ">
+            <div className="font-bold">Todo no: {todo.id}</div>
+            <div className="font-bold text-xl">{todo.todo}</div>
+            <div className="font-bold">completed: {JSON.stringify(todo.completed)}</div>
+            <button onClick={()=>deleteTodo(todo.id)} className='px-4 py-2 bg-green-700 rounded-lg cursor-pointer'>delete</button>
         </div>
     ))}
     <div className="flex items-center justify-center gap-2">
