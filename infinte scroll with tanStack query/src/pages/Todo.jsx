@@ -1,21 +1,22 @@
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 const Axios=axios.create({
-    baseURL:'https://dummyjson.com/todos'
+    baseURL:'https://dummyjson.com'
 })
 const Todo = () => {
+    const [pageCount,setPageCount]=useState(0)
     const FetchTodos=async()=>{
-        const response=await Axios.get('/')
+        const response=await Axios.get(`/todos?limit=3&skip=${pageCount*3}`)
         return response.data
     }
-   const {isError,isLoading,data}= useQuery({queryKey:['todos'],queryFn:FetchTodos})
+   const {isError,isLoading,data}= useQuery({queryKey:['todos',pageCount],queryFn:FetchTodos,placeholderData:keepPreviousData})
    console.log(data)
      
   return (
     <>
     <div className='w-full text-center text-white text-xl py-7 space-y-4'>Todo Lists</div>
-    {isError && <div>some Errro Occured</div>}
+    {isError && <div>some Errror Occured</div>}
     {isLoading && <div>Loading...</div>}
 
     {/* {data && <div>{JSON.stringify(data,2,null)}</div>} */}
@@ -26,6 +27,11 @@ const Todo = () => {
             <div className="font-bold">completed:{JSON.stringify(todo.completed)}</div>
         </div>
     ))}
+    <div className="flex items-center justify-center gap-2">
+        <button disabled={pageCount===0} onClick={()=>setPageCount((prevCount)=>prevCount-1)} className='px-4 py-2 text-white rounded-xl bg-green-900 cursor-pointer hover:bg-green-500 transition-all duration-300 '>previous</button>
+        <p>{pageCount+1}</p>
+        <button onClick={()=>setPageCount((prevCount)=>prevCount+1)} className='px-4 py-2 text-white rounded-xl bg-green-900  cursor-pointer hover:bg-green-500 transition-all duration-300'>next</button>
+    </div>
     </>
 
   )
